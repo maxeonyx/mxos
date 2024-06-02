@@ -13,7 +13,8 @@
   networking.networkmanager.enable = true;
 
   programs.git.enable = true;
-
+  programs.tmux.enable = true;
+  
   # Set your time zone.
   time.timeZone = "Pacific/Auckland";
 
