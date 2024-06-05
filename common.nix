@@ -7,6 +7,12 @@
 {
   imports = [ ];
 
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
+  environment.systemPackages = with pkgs; [
+    efibootmgr
+  ];
+
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Enable networking
@@ -14,7 +20,7 @@
 
   programs.git.enable = true;
   programs.tmux.enable = true;
-  
+
   # Set your time zone.
   time.timeZone = "Pacific/Auckland";
 
@@ -86,13 +92,6 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
-  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
