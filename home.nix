@@ -10,6 +10,7 @@
   # You can import other home-manager modules here
   imports = [
     ./home/fish.nix
+    ./home/git.nix
   ];
 
   # TODO: Set your username
@@ -24,7 +25,14 @@
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
-  programs.git.enable = true;
+
+  gtk = {
+    enable = true;
+    iconTheme = {
+      name = "Numix-Circle";
+      package = pkgs.numix-icon-theme-circle;
+    };
+  };
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";

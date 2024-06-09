@@ -2,15 +2,15 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, unstable, ... }:
 
 {
   imports = [ ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    efibootmgr
+  environment.systemPackages = [
+    pkgs.efibootmgr
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -18,7 +18,7 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
-  programs.git.enable = true;
+  # git enabled in user config via home-manager, so we can set git config.
   programs.tmux.enable = true;
 
   # Set your time zone.
