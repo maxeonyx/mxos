@@ -1,30 +1,21 @@
-# This is your home-manager configuration file
-# Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
-{
-  inputs,
-  lib,
-  config,
-  pkgs,
-  ...
-}: {
-  # You can import other home-manager modules here
+{ pkgs, ... }: {
   imports = [
     ./home/fish.nix
     ./home/git.nix
   ];
 
-  # TODO: Set your username
   home = {
     username = "maxeonyx";
     homeDirectory = "/home/maxeonyx";
   };
 
-  # Add stuff for your user as you see fit:
-  # programs.neovim.enable = true;
-  home.packages = with pkgs; [ tree ];
+  programs = {
+    firefox.enable = true;
+  };
 
-  # Enable home-manager and git
-  programs.home-manager.enable = true;
+  home.packages = [
+    pkgs.tree
+  ];
 
   gtk = {
     enable = true;
