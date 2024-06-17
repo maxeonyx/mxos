@@ -31,8 +31,18 @@
   environment.systemPackages = [
     pkgs.efibootmgr
   ];
+  boot.plymouth = {
+    enable = true;
+  };
+  boot.initrd.systemd.enable = true;
+
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
+  
+  services.xserver.videoDrivers = [
+    # for thinkpad dock
+    "displaylink"
+  ];
 
   # Rest of this stuff is from the default installation and I don't really
   # care to touch it unless neccessary.

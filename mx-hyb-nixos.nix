@@ -21,6 +21,18 @@
     enable = true;
     videoMode = "1920x1080";
   };
+  
+  services.xserver.videoDrivers = [
+    # for desktop pc
+    "nvidia"
+  ];
+  hardware.nvidia = {
+    # Using the displays via the GPU DisplayPort, so want modesetting
+    # for nice boot.
+    modesetting.enable = true;
+    # Not using the NVIDIA GPU for rendering though. Gaming on windows.
+    powerManagement.enable = false;
+  };
 
   networking.hostName = "mx-hyb-nixos";
 

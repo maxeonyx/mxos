@@ -40,6 +40,9 @@
         specialArgs = { inherit inputs outputs unstable; };
         # > Our main nixos configuration file <
         modules = [
+          {
+            disabledModules = [ "system/boot/plymouth.nix" ];
+          }
         
           ./hyperv-guest.nix
           ./mx-hyb-nixos.nix
@@ -59,6 +62,8 @@
             services.vscode-server.enable = true;
           })
           ./system/vscode.nix
+          
+          ./system/plymouth-patched.nix
         ];
       };
     };
