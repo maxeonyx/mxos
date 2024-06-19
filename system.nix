@@ -39,10 +39,11 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
   
-  services.xserver.videoDrivers = [
-    # for thinkpad dock
-    "displaylink"
-  ];
+  # enable gnome rdp login
+  services.gnome.gnome-remote-desktop.enable = true;
+  systemd.targets."graphical".wants = [ "gnome-remote-desktop.service" ];
+  networking.firewall.enable = true;
+  networking.firewall.allowedTCPPorts = [ 3389 ];
 
   # Rest of this stuff is from the default installation and I don't really
   # care to touch it unless neccessary.
