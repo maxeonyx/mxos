@@ -22,10 +22,6 @@
     videoMode = "1920x1080";
   };
   
-  services.xserver.videoDrivers = [
-    # for desktop pc
-    "nvidia"
-  ];
   hardware.nvidia = {
     # Using the displays via the GPU DisplayPort, so want modesetting
     # for nice boot.

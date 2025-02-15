@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, unstable, ... }: {
   imports = [
     ./home/fish.nix
     ./home/git.nix
@@ -15,6 +15,8 @@
 
   home.packages = [
     pkgs.tree
+    unstable.gh
+    unstable.uv
   ];
 
   gtk = {

@@ -27,7 +27,7 @@
       PasswordAuthentication = true;
     };
   };
-  
+
   environment.systemPackages = [
     pkgs.efibootmgr
   ];
@@ -38,7 +38,7 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
-  
+
   # enable gnome rdp login
   services.gnome.gnome-remote-desktop.enable = true;
   systemd.targets."graphical".wants = [ "gnome-remote-desktop.service" ];

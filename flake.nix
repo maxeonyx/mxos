@@ -15,6 +15,12 @@
     vscode-server.url = "github:nix-community/nixos-vscode-server";
     vscode-server.inputs.nixpkgs.follows = "nixpkgs";
 
+    # Rust toolchain
+    fenix = {
+      url = "github:nix-community/fenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Nix language server
     nil.url = "github:oxalica/nil";
     nil.inputs.nixpkgs.follows = "nixpkgs"; # if nil breaks, comment this out.
@@ -26,6 +32,7 @@
     nixpkgs-unstable,
     home-manager,
     vscode-server,
+    fenix,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -43,13 +50,14 @@
           {
             disabledModules = [ "system/boot/plymouth.nix" ];
           }
-        
+
           ./hyperv-guest.nix
           ./mx-hyb-nixos.nix
           ./system.nix
 
           home-manager.nixosModules.home-manager
           ({config, pkgs, ... }: {
+            home-manager.extraSpecialArgs = { inherit unstable; };
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.maxeonyx = import ./home.nix;
@@ -62,7 +70,23 @@
             services.vscode-server.enable = true;
           })
           ./system/vscode.nix
-          
+
+          # Rust toolchain
+          ({ pkgs, ... }: {
+            nixpkgs.overlays = [ fenix.overlays.default ];
+            environment.systemPackages = [
+              (pkgs.fenix.stable.withComponents [
+                "cargo"
+                "clippy"
+                "rust-src"
+                "rustc"
+                "rustfmt"
+                "rust-analyzer"
+              ])
+              pkgs.clang
+            ];
+          })
+
           ./system/plymouth-patched.nix
         ];
       };
